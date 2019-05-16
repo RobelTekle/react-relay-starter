@@ -3,18 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-plugin-relay": "^2.0.0-rc.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-relay": "^4.0.0",
     "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
+    "relay": "relay-compiler --src ./src --schema ./schema.graphql",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "relay-compiler": "^4.0.0"
   },
   "browserslist": {
     "production": [
@@ -27,8 +31,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint-config-airbnb": "^17.1.0"
   }
 }
