@@ -3,20 +3,22 @@ import {
 } from 'relay-runtime'
 
 import RelayQueryResponseCache from 'relay-runtime/lib/RelayQueryResponseCache'
+import cacheStrategy from './cacheStrategy'
+
+import fetchMock from '../mocks'
 
 const cacheTime = 60 * 1000 // 1 minute
 const cache = new RelayQueryResponseCache({ size: 250, ttl: cacheTime })
 
 function fetchQuery(operation, variables, cacheConfig) {
   const queryID = operation.text
-  const isMutation = operation.operationKind === 'mutation'
   const isQuery = operation.operationKind === 'query'
   const forceFetch = cacheConfig && cacheConfig.force
 
-  const fromCache = cache.get(queryID, variables)
+  const cachedData = cache.get(queryID, variables)
 
-  if (isQuery && !forceFetch && fromCache !== null) {
-    return fromCache
+  if (isQuery && !forceFetch && cachedData !== null) {
+    return cachedData
   }
 
   return fetch('/graphql', {
@@ -28,19 +30,19 @@ function fetchQuery(operation, variables, cacheConfig) {
   })
     .then(response => response.json())
     .then(json => {
-      if (isQuery && json) {
-        cache.set(queryID, variables, json)
-      }
-
-      if (isMutation && json) {
-        cache.clear()
-      }
-
+      cacheStrategy(cache, operation, variables, json)
       return json
     })
 }
 
-const network = Network.create(fetchQuery)
+// eslint-disable-next-line no-nested-ternary
+const query = process.env.NODE_ENV === 'production'
+  ? fetchQuery
+  : process.env.REACT_APP_MOCK
+    ? fetchMock
+    : fetchQuery
+
+const network = Network.create(query)
 const store = new Store(new RecordSource())
 
 const environment = new Environment({

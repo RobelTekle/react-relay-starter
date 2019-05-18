@@ -1,9 +1,12 @@
 {
   "name": "react-relay-starter",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "dependencies": {
     "babel-plugin-relay": "^2.0.0-rc.2",
+    "faker": "^4.1.0",
+    "graphql": "^14.3.0",
+    "graphql-tools": "^4.0.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-relay": "^4.0.0",
@@ -11,10 +14,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "relay": "relay-compiler --src ./src --schema ./schema.graphql",
+    "mock": "sh -ac 'REACT_APP_MOCK=true; yarn start'",
+    "relay": "relay-compiler --watchman false --src ./src --schema ./src/schema.graphql",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src --fix"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^17.1.0",
