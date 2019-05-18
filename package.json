@@ -5,6 +5,7 @@
   "dependencies": {
     "babel-plugin-relay": "^2.0.0-rc.2",
     "faker": "^4.1.0",
+    "flow-bin": "^0.98.1",
     "graphql": "^14.3.0",
     "graphql-tools": "^4.0.4",
     "react": "^16.8.6",
@@ -13,12 +14,13 @@
     "react-scripts": "3.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "mock": "sh -ac 'REACT_APP_MOCK=true; yarn start'",
+    "dev": "react-scripts start",
+    "mock": "sh -ac 'REACT_APP_MOCK=true; yarn dev'",
     "relay": "relay-compiler --watchman false --src ./src --schema ./src/schema.graphql",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "flow": "flow",
     "lint": "eslint src --fix"
   },
   "devDependencies": {

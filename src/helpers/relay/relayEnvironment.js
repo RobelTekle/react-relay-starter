@@ -38,7 +38,7 @@ function fetchQuery(operation, variables, cacheConfig) {
 // eslint-disable-next-line no-nested-ternary
 const query = process.env.NODE_ENV === 'production'
   ? fetchQuery
-  : process.env.REACT_APP_MOCK
+  : process.env.REACT_APP_MOCK === 'true'
     ? fetchMock
     : fetchQuery
 

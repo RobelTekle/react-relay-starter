@@ -13,9 +13,9 @@ const SayHello = () => (
       }
     `}
     variables={{ name: 'Dev' }}
-    render={({ props }) => (
+    render={data => (
       <>
-        <p>{props && props.hello}</p>
+        <p>{data.props && data.props.hello}</p>
       </>
     )}
   />
