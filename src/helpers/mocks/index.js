@@ -17,7 +17,15 @@ async function fetchMock(operation, variables) {
     preserveResolvers: true,
   })
 
-  const response = await graphql(schema, operation.text, null, null, variables)
+  const context = {} // you can initialize the context with some user data
+
+  const response = await graphql(
+    schema,
+    operation.text,
+    null,
+    context,
+    variables,
+  )
   return response
 }
 
