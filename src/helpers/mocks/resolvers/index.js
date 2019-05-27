@@ -1,5 +1,11 @@
+import faker from 'faker'
+
 export default {
   Query: {
-    hello: (root, { name }) => `Hello ${name} !`,
+    user: (root, { id }) => ({ id, name: 'Dev' }),
   },
+  User: () => ({
+    id: faker.random.uuid(),
+    name: 'Dev',
+  }),
 }
